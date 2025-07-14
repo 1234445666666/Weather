@@ -1,0 +1,95 @@
+#weather-result {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#weather-result h3 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+#weather-result h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(to right, #3498db, #2ecc71);
+}
+
+#weather-result p {
+  font-size: 1.1rem;
+  margin: 0.8rem 0;
+  color: #34495e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#weather-result p span {
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: right; 
+  min-width: 80px; 
+}
+
+#temp {
+  color: #e74c3c;
+  font-size: 1.2rem;
+}
+
+#feels-like {
+  color: #f39c12;
+}
+
+#weather-desc {
+  text-transform: capitalize;
+  color: #3498db;
+  text-align: right !important; 
+}
+
+#humidity {
+  color: #2980b9;
+}
+
+#wind-speed {
+  color: #7f8c8d;
+}
+
+@media (max-width: 600px) {
+  #weather-result {
+    padding: 1.2rem;
+  }
+
+  #weather-result h3 {
+    font-size: 1.3rem;
+  }
+
+  #weather-result p {
+    font-size: 1rem;
+  }
+  
+  #weather-result p span {
+    min-width: 70px; 
+  }
+}
