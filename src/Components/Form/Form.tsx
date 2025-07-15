@@ -10,13 +10,17 @@ export default function Form() {
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
+    const city = cityRef.current!.value.trim();
+
     if (!cityRef.current?.value) {
       alert("Введите город");
       return;
     }
 
-    const city = cityRef.current.value;
-    console.log(city);
+    if (!/^[a-zA-Zа-яА-ЯёЁ\s-]+$/i.test(city)) {
+      alert("Город должен состоять только из букв");
+      return;
+    }
 
     getWeather(city);
   };
@@ -27,11 +31,16 @@ export default function Form() {
         import.meta.env.VITE_API_KEY
       }`;
       const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error("Ошибка сервера");
+      }
+
       const data = await response.json();
-      console.log(data);
       setData(data);
     } catch {
       console.error("Error");
+      alert("Ошибка сервера, попробуйте еще раз");
       setData(null);
     }
   }
@@ -54,7 +63,7 @@ export default function Form() {
         </form>
       </div>
 
-      {data && <Weather data={data} />}
+      {data ? <Weather data={data} /> : null}
     </>
   );
 }
