@@ -1,69 +1,78 @@
-# React + TypeScript + Vite
+# Weather App - Показывает погоду в городе
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Быстрый старт
 
-Currently, two official plugins are available:
+## Скриншоты приложения
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Главный экран
+![Главный экран приложения](./public/readme/home.jpg "Главный экран приложения")
 
-## Expanding the ESLint configuration
+### Демонстрация работы
+![Демо работы](./public/readme/request.jpg "Демо работы")
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Предварительные требования
+- [Node.js](https://nodejs.org/) v18+
+- [Docker](https://www.docker.com/)
+- [Git](https://git-scm.com/)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Установка
+```bash
+git clone https://github.com/1234445666666/Weather
+cd Weather
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠 Разработка
+```bash
+npm run dev
 ```
+Приложение будет доступно по адресу: [http://localhost:3000](http://localhost:3000)
+
+## 🐳 Docker-развертывание
+
+### 1. Сборка и запуск
+```bash
+docker build -t weather .
+docker run -d -p 80:80 --name weather-app weather
+```
+Приложение будет доступно: [http://localhost](http://localhost)
+
+### 2. Остановка контейнера
+```bash
+docker stop weather-app
+```
+
+## 📁 Структура проекта
+```
+Weather/
+├── src/               # Исходный код
+├── dist/              # Production-сборка (генерируется)
+├── Dockerfile         # Конфигурация Docker
+├── nginx.conf         # Настройки Nginx
+└── vite.config.js     # Конфиг Vite
+```
+
+## ⚙️ Настройки Nginx
+Файл `nginx.conf`:
+```nginx
+server {
+    listen 80;
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+## 🔧 Устранение проблем
+Если возникает ошибка:
+```bash
+COPY failed: stat app/dist: file does not exist
+```
+1. Убедитесь, что `npm run build` генерирует папку `dist/`
+2. Проверьте пути в `Dockerfile`:
+   ```dockerfile
+   COPY --from=builder /app/dist /usr/share/nginx/html
+   ```
