@@ -1,16 +1,43 @@
 import "./Weather.scss";
 
-export default function Weather({ data }: any) {
+interface WeaterData {
+  name: string;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  weather: Array<{
+    description: string;
+  }>;
+  wind: {
+    speed: number;
+  };
+  sys: {
+    country: string;
+  };
+}
 
+interface WeatherProps {
+  data: WeaterData | null;
+}
+
+export default function Weather({ data }: WeatherProps) {
+  const CelsiustoKelvin = (temp: number) => {
+    return Math.round(temp - 273.15)
+  }
   if (!data) {
-    return (   
-    <div id="weather-result">
-    <p className="weather-message">Введите город для отображения погоды</p>
-  </div>
+    return (
+      <div className="weather-result">
+        <p className="weather-message">Введите город для отображения погоды</p>
+      </div>
     );
   }
   return (
-    <div id="weather-result">
+    <div className="weather-result">
       <h3>
         Погода в <span>{data.name}</span>
       </h3>
@@ -19,14 +46,14 @@ export default function Weather({ data }: any) {
         <div className="weather-item">
           <span className="weather-label">Температура</span>
           <span className="weather-value temperature">
-            {Math.round(data.main.temp - 273.15)}°C
+            {CelsiustoKelvin(data.main.temp)}°C
           </span>
         </div>
 
         <div className="weather-item">
           <span className="weather-label">Ощущается</span>
           <span className="weather-value feels-like">
-            {Math.round(data.main.feels_like - 273.15)}°C
+            {CelsiustoKelvin(data.main.feels_like)}°C
           </span>
         </div>
 

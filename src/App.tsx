@@ -1,14 +1,11 @@
-import Form from './Components/Form/Form.tsx'
-
+import Form from "./Components/Form/Form.tsx";
 
 function App() {
-
   return (
     <>
       <Form />
-   
     </>
-  )
+  );
 }
 
-export default App
+export default App;
