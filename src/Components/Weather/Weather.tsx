@@ -1,34 +1,14 @@
+import type { IWeaterData } from "../../types/weather.types";
 import "./Weather.scss";
 
-interface WeaterData {
-  name: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  };
-  weather: Array<{
-    description: string;
-  }>;
-  wind: {
-    speed: number;
-  };
-  sys: {
-    country: string;
-  };
-}
-
 interface WeatherProps {
-  data: WeaterData | null;
+  data: IWeaterData | null;
 }
 
 export default function Weather({ data }: WeatherProps) {
   const CelsiustoKelvin = (temp: number) => {
-    return Math.round(temp - 273.15)
-  }
+    return Math.round(temp - 273.15);
+  };
   if (!data) {
     return (
       <div className="weather-result">
